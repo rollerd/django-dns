@@ -1,0 +1,37 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'base.css' %}" />
+<h2>Modifying Records In: {{ proper_name }}</h2>
+<a href="{% url 'index' %}">Back</a>
+<form action="/privatedns/modify/all_records/{{ subnet_name }}/" method="post">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    {% for form in formset %}
+        <table border="0">
+            {{ form.id }}
+            <th colspan="5"> {{ form.non_field_errors }} </th>
+            <tr><td> {{ form.ip_or_cname.errors }} <b>IP or CNAME:</b> {{ form.ip_or_cname }}</td>
+                <td> {{ form.hostname.errors }} <b>Hostname:</b> {{ form.hostname }}</td>
+                <td> {{ form.record_type.errors }} <b>Record Type:</b> {{ form.record_type }}</td>
+                <td> {{ form.DELETE }} <b> DELETE </b></td>
+            </td></tr>
+        </table>
+    {% endfor %}
+    <input type="submit" value="SUBMIT">
+</form>
+<a href="{% url 'index' %}">Back</a>
+<!--<form action="/modify/all_records/{{ subnet_name }}/" method="post">-->
+    <!--{% csrf_token %}-->
+    <!--{{ formset.management_form }}-->
+    <!--{% for f in formset %}-->
+        <!--{{ f }}<br>-->
+    <!--{% endfor %}-->
+<!--<input type="hidden" name='type' value="mod_all">-->
+<!--<input type="submit" value="SUBMIT">-->
+    <!--<br>-->
+<!--</form>-->
+
+        <!--{% load staticfiles %}-->
+<!--<link rel="stylesheet" type="text/css" href="{% static 'base.css' %}" />-->
+<!--<h2>Modifying Records In: {{ proper_name }}</h2>-->
+
+<!--<form action="/modify/single/{{ subnet_name }}/{{ record }}/" method="post">-->

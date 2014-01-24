@@ -1,0 +1,129 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/network/mgmt_network/djangodns/privatedns/privatedns/static/admin/css/base.css" />
+    </head>
+    <body>
+    <div class="ui-widget">
+    <h2>Managed Network IP Addresses</h2>
+
+    <table border="0" cellspacing="5">
+      <tr>
+        <!--<form action="/add/new/" method="post">-->
+        <form action="{% url 'index' %}" method="post">
+          <td valign="top">
+            <b>Create new record(s):</b>&nbsp;&nbsp;
+          </td>
+          <td valign="top">
+            {% csrf_token %}
+            {% for dropdown in subnets %}
+                {{ dropdown }}
+            {% endfor %}
+            <b>Create</b>
+            <input type="hidden" name="type" value="add">
+            <input type="textbox" name="number" size="3" value="1">&nbsp;&nbsp; <b>new record(s)</b>
+            <input type="submit" value="go">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <b>Modify a single record:</b>&nbsp;&nbsp;
+        </td>
+        <td valign="top">
+          <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+            {% for dropdown in subnets %}
+                {{ dropdown }}
+            {% endfor %}
+            <input type="hidden" name="type" value="mod_single">
+            <input type="submit" value="go">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <b>Modify multiple records:</b>&nbsp;&nbsp;
+        </td>
+        <td valign="top">
+          <!--<form action="/modify/all_records/" method="get">-->
+          <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+            {% for dropdown in subnets %}
+                {{ dropdown }}
+            {% endfor %}
+            <input type="hidden" name="type" value="mod_all">
+            <input type="submit" value="go">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <b>View all existing records:</b>&nbsp;&nbsp;
+        </td>
+        <td valign="top">
+          <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+            {% for dropdown in subnets %}
+                {{ dropdown }}
+            {% endfor %}
+            <input type="hidden" name="type" value="ip">
+        <input type="submit" value="go">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <b>View all existing records:</b>&nbsp;&nbsp;<br>
+          <b>in /etc/hosts format (txt)</b>
+        </td>
+        <td valign="top">
+          <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+            {% for dropdown in subnets %}
+                {{ dropdown }}
+            {% endfor %}
+            <input type="hidden" name="type" value="forward">
+            <input type="submit" value="go">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <b>View all existing records:</b>&nbsp;&nbsp;<br>
+          <b>in reverse DNS format</b>
+        </td>
+        <td valign="top">
+          <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+            {% for dropdown in subnets %}
+                {{ dropdown }}
+            {% endfor %}
+            <input type="hidden" name="type" value="reverse">
+            <input type="submit" value="go">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <b>View all existing records:</b>&nbsp;&nbsp;<br>
+        </td>
+        <td valign="top">
+          <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+            <select name="subnet">
+            {% for domain in domains %}
+                <option value="{{ domain }}">{{ domain }}</option>
+            {% endfor %}
+            </select>
+            <input type="hidden" name="type" value="all">
+            <input type="submit" value="g2o">
+          </form>
+        </td>
+      </tr>
+    </table>
+    <p>
+      <a href="/privatedns/index/changelog/">View Changelog</a>
+    </p>
+    </div>
+    </body>
+</html>

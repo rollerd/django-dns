@@ -1,0 +1,139 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    </head>
+    <body>
+    <div class="ui-widget">
+    <h2>Managed Network IP Addresses</h2>
+
+    <table border="0" cellspacing="5">
+      <tr>
+          <form action="/create/new/" method="post">
+              {% csrf_token %}
+              {{ form }}
+          <input type="submit" value="SUBMIT">
+          </form>
+      </tr>
+      <tr>
+        <form action="/create/new/">
+          <td valign="top">
+            <b>Create new record(s):</b>&nbsp;&nbsp;
+          </td>
+          <td valign="top">
+            <select name="subnet" style="width: 155px;">
+              {% for subnet in subnet_objs %}
+                  <option value={{ subnet.subnet_name }}>{{ subnet.subnet_name }}</option>
+              {% endfor %}
+            </select>&nbsp;&nbsp;
+            <b>Create</b>
+            <input type="textbox" name="number" size="3" value="1">&nbsp;&nbsp; <b>new record(s)</b>
+            <input type="submit" value="go">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <b>Modify a single record:</b>&nbsp;&nbsp;
+        </td>
+        <td valign="top">
+          <form action="../cgi-bin/pytest.cgi">
+            <select name="subnet" style="width: 155px;">
+              {% for subnet in subnet_objs %}
+                  <option value={{ subnet.subnet_name }}>{{ subnet.subnet_name }}</option>
+              {% endfor %}
+            </select>
+            <!--<b>Record to search for: </b>-->
+            <input type="submit" value="go">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <b>Modify multiple records:</b>&nbsp;&nbsp;
+        </td>
+        <td valign="top">
+          <form action="../cgi-bin/pymodify.cgi">
+            <select name="subnet" style="width: 155px;">
+              {% for subnet in subnet_objs %}
+                  <option value={{ subnet.subnet_name }}>{{ subnet.subnet_name }}</option>
+              {% endfor %}
+            </select>
+            <input type="hidden" name="type" value="all">
+            <input type="submit" value="go">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <b>View all existing records:</b>&nbsp;&nbsp;
+        </td>
+        <td valign="top">
+          <form action="/view/text/" method="get">
+            <select name="subnet" style="width: 155px;">
+              {% for subnet in subnet_objs %}
+                  <option value={{ subnet.subnet_name }}>{{ subnet.subnet_name }}</option>
+              {% endfor %}
+            </select>
+            <input type="hidden" name="type" value="ip">
+        <input type="submit" value="go">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <b>View all existing records:</b>&nbsp;&nbsp;<br>
+          <b>in /etc/hosts format (txt)</b>
+        </td>
+        <td valign="top">
+          <form action="/view/text/" method="get">
+          {% csrf_token %}
+            <select name="subnet" style="width: 155px;">
+              {% for subnet in subnet_objs %}
+                  <option value= "{{ subnet.subnet_name }}"> {{ subnet.subnet_name }} </option>
+              {% endfor %}
+            </select>
+            <input type="hidden" name="type" value="forward">
+            <input type="submit" value="go">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <b>View all existing records:</b>&nbsp;&nbsp;<br>
+          <b>in reverse DNS format</b>
+        </td>
+        <td valign="top">
+          <form action="/view/text/" method="get">
+            <select name="subnet" style="width: 155px;">
+              {% for subnet in subnet_objs %}
+                  <option value={{ subnet.subnet_name }}>{{ subnet.subnet_name }}</option>
+              {% endfor %}
+        </select>
+            <input type="hidden" name="type" value="reverse">
+            <input type="submit" value="go">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <b>View all existing records:</b>&nbsp;&nbsp;<br>
+        </td>
+        <td valign="top">
+          <form action="/view/text/" method="get">
+            <select name="subnet" style="width: 155px;">
+                {% for domain in domains %}
+                    <option value={{ domain }}>{{ domain }}</option>
+                {% endfor %}
+            </select>
+            <input type="hidden" name="type" value="all">
+            <input type="submit" value="go">
+          </form>
+        </td>
+      </tr>
+    </table>
+    <p>
+      <a href="changelog.txt">View Changelog</a>
+    </p>
+    </div>
+    </body>
+</html>

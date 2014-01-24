@@ -1,0 +1,17 @@
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+<form action="/add/new/{{ subnet_name }}/{{ number }}/" method="post">
+    {% csrf_token %}
+
+    {{ formset.management_form }}
+    {% for form in formset %}
+    <table border="2">
+        <th colspan="2">{{ form.non_field_errors }}</th>
+        <tr><td> {{ form.ip_or_cname.errors }} <b>IP or CNAME:</b> {{ form.ip_or_cname }}</td>
+            <td> {{ form.hostname.errors }} <b>Hostname:</b>{{ form.hostname }}</td></tr>
+    </table><br>
+    {% endfor %}
+
+<input type="hidden" name='add' value="add">
+<input type="hidden" name="sname" value="{{ subnet }}">
+<input type="submit" value="SUBnMIT">
+</form>

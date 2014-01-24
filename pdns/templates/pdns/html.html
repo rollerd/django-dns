@@ -1,0 +1,37 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'base.css' %}" />
+<table>
+    <h2>Viewing: {{ proper_name }}</h2>
+    <b>Total IPs</b>: {{ total_ips }}<br>
+    <b>Registered IPs</b>: {{ total_registered_ips }}<br>
+    <b>Available IPs</b>: {{ available_ips }}<br>
+    <strong>sort by  </strong><a href=/privatedns/view/html/ip/{{ subnet_name }}>ip</a> | <a href=/privatedns/view/html/name/{{ subnet_name }}>hostname</a><p>
+    <br>
+    <a href="{% url 'index' %}">Back</a>
+
+    {% if sortby == 'ip' %}
+        {% for ip, host in cname_host_list %}
+            <tr><td>CNAME&nbsp&nbsp</td><td>{{ ip }}&nbsp&nbsp</td><td>{{ host }}</td></tr>
+        {% endfor %}
+
+        {% for ip, host in sorted_list %}
+            <tr><td>A&nbsp&nbsp</td><td>{{ ip }}&nbsp&nbsp</td><td>{{ host }}</td></tr>
+        {% endfor %}
+
+    {% endif %}
+
+    {% if sortby == 'name' %}
+        {% for ip, host in cname_host_list %}
+            <tr><td>CNAME&nbsp&nbsp</td><td>{{ ip }}&nbsp&nbsp</td><td>{{ host }}</td></tr>
+        {% endfor %}
+
+        {% for ip, host in sorted_list %}
+            <tr><td>A&nbsp&nbsp</td><td>{{ ip }}&nbsp&nbsp</td><td>{{ host }}</td></tr>
+        {% endfor %}
+
+    {% endif %}
+
+</table>
+<br>
+<br>
+<a href="{% url 'index' %}">Back</a>
