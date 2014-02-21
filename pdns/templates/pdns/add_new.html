@@ -8,8 +8,9 @@
     {% for form in formset %}
     <table border="0">
         <th colspan="2">{{ form.non_field_errors }}</th>
-        <tr><td> {{ form.ip_or_cname.errors }} <b>IP or CNAME:</b> {{ form.ip_or_cname }}</td>
-            <td> {{ form.hostname.errors }} <b>Hostname:</b>{{ form.hostname }}</td></tr>
+        <tr><td> {{ form.hostname.errors }} <b>Hostname:</b>{{ form.hostname }}</td>
+        <td> {{ form.ip_or_cname.errors }} <b>IP or CNAME:</b> {{ form.ip_or_cname }}</td>
+        </tr>
     </table>
     {% endfor %}
 
